@@ -1,0 +1,194 @@
+{
+    "regiao": "Brasil",
+    "estados": [
+        {
+            "sigla": "AC",
+            "nome": "Acre",
+            "cidades": [
+                "Rio Branco"
+            ]
+        },
+        {
+            "sigla": "AL",
+            "nome": "Alagoas",
+            "cidades": [
+                "Maceio"
+            ]
+        },
+        {
+            "sigla": "AM",
+            "nome": "Amazonas",
+            "cidades": [
+                "Manaus"
+            ]
+        },
+        {
+            "sigla": "AP",
+            "nome": "Amapa",
+            "cidades": [
+                "Macapa"
+            ]
+        },
+        {
+            "sigla": "BA",
+            "nome": "Bahia",
+            "cidades": [
+                "Salvador"
+            ]
+        },
+        {
+            "sigla": "CE",
+            "nome": "Ceara",
+            "cidades": [
+                "Fortaleza"
+            ]
+        },
+        {
+            "sigla": "DF",
+            "nome": "Distrito Federal",
+            "cidades": [
+                "Brasilia"
+            ]
+        },
+        {
+            "sigla": "ES",
+            "nome": "Espirito Santo",
+            "cidades": [
+                "Vitoria"
+            ]
+        },
+        {
+            "sigla": "GO",
+            "nome": "Goias",
+            "cidades": [
+                "Goiania"
+            ]
+        },
+        {
+            "sigla": "MA",
+            "nome": "Maranhao",
+            "cidades": [
+                "Sao Luis"
+            ]
+        },
+        {
+            "sigla": "MG",
+            "nome": "Minas Gerais",
+            "cidades": [
+                "Belo Horizonte"
+            ]
+        },
+        {
+            "sigla": "MS",
+            "nome": "Mato Grosso do Sul",
+            "cidades": [
+                "Campo Grande"
+            ]
+        },
+        {
+            "sigla": "MT",
+            "nome": "Mato Grosso",
+            "cidades": [
+                "Cuiaba"
+            ]
+        },
+        {
+            "sigla": "PA",
+            "nome": "Para",
+            "cidades": [
+                "Belem"
+            ]
+        },
+        {
+            "sigla": "PB",
+            "nome": "Paraiba",
+            "cidades": [
+                "Joao Pessoa"
+            ]
+        },
+        {
+            "sigla": "PE",
+            "nome": "Pernambuco",
+            "cidades": [
+                "Recife"
+            ]
+        },
+        {
+            "sigla": "PI",
+            "nome": "Piaui",
+            "cidades": [
+                "Teresina"
+            ]
+        },
+        {
+            "sigla": "PR",
+            "nome": "Parana",
+            "cidades": [
+                "Curitiba"
+            ]
+        },
+        {
+            "sigla": "RJ",
+            "nome": "Rio de Janeiro",
+            "cidades": [
+                "Rio de Janeiro"
+            ]
+        },
+        {
+            "sigla": "RN",
+            "nome": "Rio Grande do Norte",
+            "cidades": [
+                "Natal"
+            ]
+        },
+        {
+            "sigla": "RO",
+            "nome": "Rondonia",
+            "cidades": [
+                "Porto Velho"
+            ]
+        },
+        {
+            "sigla": "RR",
+            "nome": "Roraima",
+            "cidades": [
+                "Boa Vista"
+            ]
+        },
+        {
+            "sigla": "RS",
+            "nome": "Rio Grande do Sul",
+            "cidades": [
+                "Porto Alegre"
+            ]
+        },
+        {
+            "sigla": "SC",
+            "nome": "Santa Catarina",
+            "cidades": [
+                "Florianopolis"
+            ]
+        },
+        {
+            "sigla": "SE",
+            "nome": "Sergipe",
+            "cidades": [
+                "Aracaju"
+            ]
+        },
+        {
+            "sigla": "SP",
+            "nome": "Sao Paulo",
+            "cidades": [
+                "Sao Paulo"
+            ]
+        },
+        {
+            "sigla": "TO",
+            "nome": "Tocantins",
+            "cidades": [
+                "Palmas"
+            ]
+        }
+    ]
+}
