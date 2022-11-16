@@ -15,9 +15,10 @@ import sys
 import random
 import string
 
-print("\U0001F916 Ola Usuario, seja bem-vindo, irei te auxiliar em todo o processo de adequação do sistema!","\n--------")
+print("\U0001F916 Ola Usuario, seja bem-vindo, irei te auxiliar em todo o processo de adequação do sistema!", "\n--------")
 
-print("\U0001F916 Estou identificando qual é o seu sistema operacional para me permitir validar algumas coisas...","\n--------")
+print("\U0001F916 Estou identificando qual é o seu sistema operacional para me permitir validar algumas coisas...", "\n--------")
+
 
 def buscar_sistema_operacional():
     os_type = sys.platform.lower()
@@ -27,9 +28,12 @@ def buscar_sistema_operacional():
         command = 'pip list | grep {}'
     return command
 
-print("\U0001F916 O seu sistema operacional é", platform.uname().system,"\n--------")
+
+print("\U0001F916 O seu sistema operacional é",
+      platform.uname().system, "\n--------")
 
 bibliotecas = ['mysql-connector-python', 'pyodbc']
+
 
 def validLibrary(bibliotecas):
     print("\U0001F916 Vou iniciar algumas validações de bibliotecas agora.", "\n--------")
@@ -38,18 +42,23 @@ def validLibrary(bibliotecas):
         exibir = os.popen(command).read()
 
         if (exibir == ''):
-            print("\U0001F916 Opa! identifiquei que a biblioteca", i, "não esta instalada!","\n--------")
+            print("\U0001F916 Opa! identifiquei que a biblioteca",
+                  i, "não esta instalada!", "\n--------")
             time.sleep(2)
-            print("\U0001F916 Mas não se preocupe, vou instalar a biblioteca", i, "para você.","\n--------")
+            print("\U0001F916 Mas não se preocupe, vou instalar a biblioteca",
+                  i, "para você.", "\n--------")
             ins = 'pip install {}'.format(i)
             os.system(ins)
 
         else:
-            print("\U0001F916 Que ótimo, você ja tem a biblioteca", exibir,"\n--------")
+            print("\U0001F916 Que ótimo, você ja tem a biblioteca",
+                  exibir, "\n--------")
+
 
 validLibrary(bibliotecas)
 
 escolha = 1
+
 
 def buscar_serial():
     os_type = sys.platform.lower()
@@ -65,7 +74,7 @@ def buscar_serial():
 def captura(conn, coxn):
     cursor = conn.cursor()
     cursor_sql = coxn.cursor()
-    
+
     print("Seja bem-vindo ao sistema de captura de dados do seu Hardware \U0001F604")
 
     print("\U0001F750 Iniciando captura dos dados...", "\n--------")
@@ -94,48 +103,51 @@ def captura(conn, coxn):
             if Regiao == 0:
                 nomeRegiao = data['regiao']
                 cursor.execute("INSERT INTO GustavoRegiao (nomeRegiao) VALUES (%s);",
-                                (nomeRegiao,))
+                               (nomeRegiao,))
                 conn.commit()
                 print("\U0001F916 MySQL - Inserção de dados de Regiões: 1", "\n--------")
-                
-            #SQL Server
-            cursor_sql.execute(
-                "SELECT COUNT(idRegiao) FROM GustavoRegiao")
-            rowRegi_sql = cursor_sql.fetchone()
-            Regiao_sql = int(''.join(map(str, rowRegi_sql)))
-            print("\U0001F916 SQL Server - Regiões detectadas:", Regiao_sql, "\n--------")
-            
-            if Regiao_sql == 0:
-                nomeRegiao = data['regiao']
-                print(nomeRegiao)
-                cursor_sql.execute("INSERT INTO GustavoRegiao (nomeRegiao) VALUES (?);",
-                                (nomeRegiao,))
-                coxn.commit()
-                print("\U0001F916 SQL Server - Inserção de dados de Regiões: 1")
-            
-            time.sleep(2)
-            
-            # MySQL
-            cursor.execute(
-                "SELECT COUNT(idRegiao) FROM GustavoRegiao")
-            rowRegi = cursor.fetchone()
-            Regiao = int(''.join(map(str, rowRegi)))
-            print("\U0001F916 MySQL - Validação de Regiões detectadas:", Regiao, "\n--------")
-            
+
             # SQL Server
             cursor_sql.execute(
                 "SELECT COUNT(idRegiao) FROM GustavoRegiao")
             rowRegi_sql = cursor_sql.fetchone()
             Regiao_sql = int(''.join(map(str, rowRegi_sql)))
-            print("\U0001F916 SQL Server - Validação Regiões detectadas:", Regiao_sql, "\n--------")
-            
-            if Regiao and Regiao_sql != 0: 
+            print("\U0001F916 SQL Server - Regiões detectadas:",
+                  Regiao_sql, "\n--------")
+
+            if Regiao_sql == 0:
+                nomeRegiao = data['regiao']
+                print(nomeRegiao)
+                cursor_sql.execute("INSERT INTO GustavoRegiao (nomeRegiao) VALUES (?);",
+                                   (nomeRegiao,))
+                coxn.commit()
+                print("\U0001F916 SQL Server - Inserção de dados de Regiões: 1")
+
+            time.sleep(2)
+
+            # MySQL
+            cursor.execute(
+                "SELECT COUNT(idRegiao) FROM GustavoRegiao")
+            rowRegi = cursor.fetchone()
+            Regiao = int(''.join(map(str, rowRegi)))
+            print("\U0001F916 MySQL - Validação de Regiões detectadas:",
+                  Regiao, "\n--------")
+
+            # SQL Server
+            cursor_sql.execute(
+                "SELECT COUNT(idRegiao) FROM GustavoRegiao")
+            rowRegi_sql = cursor_sql.fetchone()
+            Regiao_sql = int(''.join(map(str, rowRegi_sql)))
+            print("\U0001F916 SQL Server - Validação Regiões detectadas:",
+                  Regiao_sql, "\n--------")
+
+            if Regiao and Regiao_sql != 0:
                 validacaoEstado(Regiao, Regiao_sql)
             else:
                 validacaoRegiao()
 
         def validacaoEstado(Regiao, Regiao_sql):
-            #MySQL
+            # MySQL
             cursor.execute(
                 "SELECT COUNT(idEstado) FROM GustavoEstado")
             rowEsta = cursor.fetchone()
@@ -152,16 +164,18 @@ def captura(conn, coxn):
 
                     cursor.execute(
                         "INSERT INTO GustavoEstado (sigla, nomeEstado) VALUES (%s,%s);", (nomeSigla, nomeEstado))
-                    print("\U0001F916 MySQL - Inserção de dados de Estados:", i, nomeSigla, nomeEstado,  "\n--------")
+                    print("\U0001F916 MySQL - Inserção de dados de Estados:",
+                          i, nomeSigla, nomeEstado,  "\n--------")
                     conn.commit()
-                
-            #SQL Server
+
+            # SQL Server
             cursor_sql.execute(
                 "SELECT COUNT(idEstado) FROM GustavoEstado")
             rowEsta_sql = cursor_sql.fetchone()
             Estado_sql = int(''.join(map(str, rowEsta_sql)))
-            print("\U0001F916 SQL Server - Estados detectados:", Estado_sql, "\n--------")
-            
+            print("\U0001F916 SQL Server - Estados detectados:",
+                  Estado_sql, "\n--------")
+
             if Estado_sql == 0:
                 tamanhoEstado = len(data['estados'])
                 print(tamanhoEstado)
@@ -172,30 +186,33 @@ def captura(conn, coxn):
 
                     cursor_sql.execute(
                         "INSERT INTO GustavoEstado (sigla, nomeEstado) VALUES (?,?);", (nomeSigla, nomeEstado))
-                    print("\U0001F916 SQL Server - Inserção de dados de Estados:", i, nomeSigla, nomeEstado, "\n--------")
+                    print("\U0001F916 SQL Server - Inserção de dados de Estados:",
+                          i, nomeSigla, nomeEstado, "\n--------")
                     coxn.commit()
-            
+
             time.sleep(2)
-            
-            #MySQL
+
+            # MySQL
             cursor.execute(
                 "SELECT COUNT(idEstado) FROM GustavoEstado")
             rowEsta = cursor.fetchone()
             Estado = int(''.join(map(str, rowEsta)))
-            print("\U0001F916 MySQL - Validação de Estados detectados:", Estado, "\n--------")
-            
-            #SQL Server
+            print("\U0001F916 MySQL - Validação de Estados detectados:",
+                  Estado, "\n--------")
+
+            # SQL Server
             cursor_sql.execute(
                 "SELECT COUNT(idEstado) FROM GustavoEstado")
             rowEsta_sql = cursor_sql.fetchone()
             Estado_sql = int(''.join(map(str, rowEsta_sql)))
-            print("\U0001F916 SQL Server - Validação de Estados detectados:", Estado_sql, "\n--------")
-            
+            print("\U0001F916 SQL Server - Validação de Estados detectados:",
+                  Estado_sql, "\n--------")
+
             if Estado and Estado_sql != 0:
                 validacaoCidade(Regiao, Estado, Regiao_sql, Estado_sql)
             else:
-                validacaoEstado(Regiao,Regiao_sql)
-                
+                validacaoEstado(Regiao, Regiao_sql)
+
         def validacaoCidade(Regiao, Estado, Regiao_sql, Estado_sql):
             # MySQL
             cursor.execute(
@@ -214,16 +231,18 @@ def captura(conn, coxn):
 
                         cidade = data['estados'][x]['cidades'][0]
                         cursor.execute("INSERT INTO GustavoCidade (fkRegiao, fkEstado, nomeCidade) VALUES (%s, %s, %s);",
-                                        (p, b, cidade))
-                        print("\U0001F916 MySQL - Inserção de dados de Cidades:", b, cidade, "\n--------")
+                                       (p, b, cidade))
+                        print(
+                            "\U0001F916 MySQL - Inserção de dados de Cidades:", b, cidade, "\n--------")
                         conn.commit()
-            
+
             # SQL Server
             cursor_sql.execute(
                 "SELECT COUNT(idCidade) FROM GustavoCidade")
             rowCid_sql = cursor_sql.fetchone()
             Cids_sql = int(''.join(map(str, rowCid_sql)))
-            print("\U0001F916 SQL Server - Cidades detectadas:", Cids_sql, "\n--------")
+            print("\U0001F916 SQL Server - Cidades detectadas:",
+                  Cids_sql, "\n--------")
 
             if Cids_sql == 0:
                 for p in range(Regiao_sql):
@@ -235,26 +254,29 @@ def captura(conn, coxn):
 
                         cidade = data['estados'][x]['cidades'][0]
                         cursor_sql.execute("INSERT INTO GustavoCidade (fkRegiao, fkEstado, nomeCidade) VALUES (?, ?, ?);",
-                                        (p, b, cidade))
-                        print("\U0001F916 SQL Server - Inserção de dados de Cidades:", b, cidade, "\n--------")
+                                           (p, b, cidade))
+                        print(
+                            "\U0001F916 SQL Server - Inserção de dados de Cidades:", b, cidade, "\n--------")
                         coxn.commit()
-            
+
             time.sleep(2)
-            
+
             # MySQL
             cursor.execute(
                 "SELECT COUNT(idCidade) FROM GustavoCidade")
             rowCid = cursor.fetchone()
             Cids = int(''.join(map(str, rowCid)))
-            print("\U0001F916 MySQL - Validação de Cidades detectadas:", Cids, "\n--------")
-            
+            print("\U0001F916 MySQL - Validação de Cidades detectadas:",
+                  Cids, "\n--------")
+
             # SQL Server
             cursor_sql.execute(
                 "SELECT COUNT(idCidade) FROM GustavoCidade")
             rowCid_sql = cursor_sql.fetchone()
             Cids_sql = int(''.join(map(str, rowCid_sql)))
-            print("\U0001F916 SQL Server - Validação Cidades detectadas:", Cids_sql, "\n--------")
-                    
+            print("\U0001F916 SQL Server - Validação Cidades detectadas:",
+                  Cids_sql, "\n--------")
+
             if Cids and Cids_sql != 0:
                 validacaoEquip(Cids, Cids_sql)
             else:
@@ -267,7 +289,7 @@ def captura(conn, coxn):
             rowEquip = cursor.fetchone()
             Equipamentos = int(''.join(map(str, rowEquip)))
             print("\U0001F916 MySQL - Equipamentos detectados: ",
-                    Equipamentos, "\n--------")
+                  Equipamentos, "\n--------")
 
             if Equipamentos == 0:
 
@@ -281,7 +303,7 @@ def captura(conn, coxn):
 
                 for serial in range(Cids):
                     numeroSerial = ''.join(random.choice(letras)
-                                            for _ in range(7))
+                                           for _ in range(7))
                     formatSerial = f"SerialNumber{numeroSerial}"
                     serialnumber.append(formatSerial)
 
@@ -314,20 +336,20 @@ def captura(conn, coxn):
                 for i in range(Cids):
                     i = i + 1
                     b = i - 1
-                    a = i + 49    
-                    
+
                     cursor.execute("INSERT INTO GustavoEquipamento (fkRegiao, fkEstado, fkCidade, numeroSerial, apelido, sistemaOperacional, arquitetura, modelo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);",
-                                    (Regiao, i, a, serialnumber[b], nomemaquinas[b], sistemas[b], arquiteturas[b], processadores[b]))
-                    print("\U0001F916 MySQL - Inserção de dados de Equipamento:", i, serialnumber[b], nomemaquinas[b], sistemas[b], arquiteturas[b], processadores[b], "\n--------")
+                                   (Regiao, i, i, serialnumber[b], nomemaquinas[b], sistemas[b], arquiteturas[b], processadores[b]))
+                    print("\U0001F916 MySQL - Inserção de dados de Equipamento:", i,
+                          serialnumber[b], nomemaquinas[b], sistemas[b], arquiteturas[b], processadores[b], "\n--------")
                     conn.commit()
-                
+
             # SQL Server
             cursor_sql.execute(
                 "SELECT COUNT(idEquipamento) FROM GustavoEquipamento")
             rowEquip_sql = cursor_sql.fetchone()
             Equipamentos_sql = int(''.join(map(str, rowEquip_sql)))
             print("\U0001F916 SQL Server - Equipamentos detectados: ",
-                    Equipamentos_sql, "\n--------")
+                  Equipamentos_sql, "\n--------")
 
             if Equipamentos_sql == 0:
 
@@ -341,7 +363,7 @@ def captura(conn, coxn):
 
                 for serial in range(Cids):
                     numeroSerial = ''.join(random.choice(letras)
-                                            for _ in range(7))
+                                           for _ in range(7))
                     formatSerial = f"SerialNumber{numeroSerial}"
                     serialnumber.append(formatSerial)
 
@@ -353,7 +375,7 @@ def captura(conn, coxn):
                     apelidoMaquina = ''.join(
                         random.choice(letras) for _ in range(10))
                     nomemaquinas.append(apelidoMaquina)
-                    
+
                     arqIntel = 'x86'
                     arquiteturas.append(arqIntel)
                     arqAMD = 'AMD64'
@@ -376,72 +398,76 @@ def captura(conn, coxn):
                     b = i - 1
 
                     cursor.execute("INSERT INTO GustavoEquipamento (fkRegiao, fkEstado, fkCidade, numeroSerial, apelido, sistemaOperacional, arquitetura, modelo) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
-                                    (Regiao_sql, i, i, serialnumber[b], nomemaquinas[b], sistemas[b], arquiteturas[b], processadores[b]))
-                    print("\U0001F916 SQL Server - Inserção de dados de Equipamento:", i, serialnumber[b], nomemaquinas[b], sistemas[b], arquiteturas[b], processadores[b], "\n--------")
+                                   (Regiao_sql, i, i, serialnumber[b], nomemaquinas[b], sistemas[b], arquiteturas[b], processadores[b]))
+                    print("\U0001F916 SQL Server - Inserção de dados de Equipamento:", i,
+                          serialnumber[b], nomemaquinas[b], sistemas[b], arquiteturas[b], processadores[b], "\n--------")
                     coxn.commit()
 
             time.sleep(2)
-            
+
             # MySQL
             cursor.execute(
                 "SELECT COUNT(idEquipamento) FROM GustavoEquipamento")
             rowEquip = cursor.fetchone()
             Equipamentos = int(''.join(map(str, rowEquip)))
             print("\U0001F916 MySQL - Validação de Equipamentos detectados: ",
-                    Equipamentos, "\n--------")
-            
+                  Equipamentos, "\n--------")
+
             # SQL Server
             cursor_sql.execute(
                 "SELECT COUNT(idEquipamento) FROM GustavoEquipamento")
             rowEquip_sql = cursor_sql.fetchone()
             Equipamentos_sql = int(''.join(map(str, rowEquip_sql)))
             print("\U0001F916 SQL Server - Validação de Equipamentos detectados: ",
-                    Equipamentos_sql, "\n--------")
-            
+                  Equipamentos_sql, "\n--------")
+
             if Equipamentos and Equipamentos_sql != 0:
                 validacaoComp()
             else:
                 validacaoEquip(Cids, Cids_sql)
 
         def validacaoComp():
-            #MySQL
+            # MySQL
             cursor.execute("SELECT COUNT(idComponente) FROM GustavoComponente")
             rowComp = cursor.fetchone()
             Componente = int(''.join(map(str, rowComp)))
             print("\U0001F916 MySQL - Componentes detectados: ",
-                    Componente, "\n--------")
+                  Componente, "\n--------")
 
             if Componente == 0:
-                componentes = ['CPU', 'Memoria', 'Disco', 'GPU']
+                componentes = ['CPU']
 
                 for i in range(len(componentes)):
                     cursor.execute("INSERT INTO GustavoComponente (nomeComponente) VALUES (%s);",
-                                    (componentes[i],))
+                                   (componentes[i],))
                     conn.commit()
-                    print("\U0001F916 MySQL - Inserção de dados de Componentes:", i + 1, componentes[i], "\n--------")
-            
-            #SQL Server
-            cursor_sql.execute("SELECT COUNT(idComponente) FROM GustavoComponente")
+                    print("\U0001F916 MySQL - Inserção de dados de Componentes:",
+                          i + 1, componentes[i], "\n--------")
+
+            # SQL Server
+            cursor_sql.execute(
+                "SELECT COUNT(idComponente) FROM GustavoComponente")
             rowComp_sql = cursor_sql.fetchone()
             Componente_sql = int(''.join(map(str, rowComp_sql)))
             print("\U0001F916 SQL Server - Componentes detectados: ",
-                    Componente_sql, "\n--------")
+                  Componente_sql, "\n--------")
 
             if Componente_sql == 0:
                 componentes = ['CPU', 'Memoria', 'Disco', 'GPU']
 
                 for i in range(len(componentes)):
                     cursor_sql.execute("INSERT INTO GustavoComponente (nomeComponente) VALUES (?);",
-                                    (componentes[i],))
+                                       (componentes[i],))
                     coxn.commit()
-                    print("\U0001F916 SQL Server - Inserção de dados de Componentes:", i + 1, componentes[i], "\n--------")
-                
+                    print("\U0001F916 SQL Server - Inserção de dados de Componentes:",
+                          i + 1, componentes[i], "\n--------")
+
             if Componente and Componente_sql == 0:
                 validacaoComp()
 
         print("\U0001F916 Iniciando validações de dados: ", "\n--------")
         print("Validação Final - MySQL", "\n--------")
-        #MySQL
+        # MySQL
         cursor.execute("SELECT COUNT(idRegiao) FROM GustavoRegiao")
         rowRegiao = cursor.fetchone()
         Regiao = int(''.join(map(str, rowRegiao)))
@@ -461,82 +487,89 @@ def captura(conn, coxn):
         rowEquip = cursor.fetchone()
         Equipamento = int(''.join(map(str, rowEquip)))
         print("\U0001F916 MySQL - Equipamentos detectados: ",
-                Equipamento, "\n--------")
+              Equipamento, "\n--------")
 
         cursor.execute("SELECT COUNT(idComponente) FROM GustavoComponente")
         rowComponente = cursor.fetchone()
         Componentes = int(''.join(map(str, rowComponente)))
         print("\U0001F916 MySQL - Componentes detectados: ",
-                Componentes, "\n--------")
-        
+              Componentes, "\n--------")
+
         cursor.execute("SELECT COUNT(idLeitura) FROM GustavoLeitura")
         rowLeitura = cursor.fetchone()
         Leitura = int(''.join(map(str, rowLeitura)))
         print("\U0001F916 MySQL - Leituras detectadas: ",
-                Leitura, "\n--------")
+              Leitura, "\n--------")
 
         print("Validação Final - SQL Server", "\n--------")
         # SQL Server
         cursor_sql.execute("SELECT COUNT(idRegiao) FROM GustavoRegiao")
         rowRegiao_sql = cursor_sql.fetchone()
         Regiao_sql = int(''.join(map(str, rowRegiao_sql)))
-        print("\U0001F916 SQL Server - Regiões detectadas: ", Regiao_sql, "\n--------")
+        print("\U0001F916 SQL Server - Regiões detectadas: ",
+              Regiao_sql, "\n--------")
 
         cursor_sql.execute("SELECT COUNT(idEstado) FROM GustavoEstado")
         rowEstado_sql = cursor_sql.fetchone()
         Estado_sql = int(''.join(map(str, rowEstado_sql)))
-        print("\U0001F916 SQL Server - Estados detectados: ", Estado_sql, "\n--------")
+        print("\U0001F916 SQL Server - Estados detectados: ",
+              Estado_sql, "\n--------")
 
         cursor_sql.execute("SELECT COUNT(idCidade) FROM GustavoCidade")
         rowCidade_sql = cursor_sql.fetchone()
         Cidade_sql = int(''.join(map(str, rowCidade_sql)))
-        print("\U0001F916 SQL Server - Cidades detectadas: ", Cidade_sql, "\n--------")
+        print("\U0001F916 SQL Server - Cidades detectadas: ",
+              Cidade_sql, "\n--------")
 
-        cursor_sql.execute("SELECT COUNT(idEquipamento) FROM GustavoEquipamento")
+        cursor_sql.execute(
+            "SELECT COUNT(idEquipamento) FROM GustavoEquipamento")
         rowEquip_sql = cursor_sql.fetchone()
         Equipamento_sql = int(''.join(map(str, rowEquip_sql)))
         print("\U0001F916 SQL Server - Equipamentos detectados: ",
-                Equipamento_sql, "\n--------")
+              Equipamento_sql, "\n--------")
 
         cursor_sql.execute("SELECT COUNT(idComponente) FROM GustavoComponente")
         rowComponente_sql = cursor_sql.fetchone()
         Componentes_sql = int(''.join(map(str, rowComponente_sql)))
         print("\U0001F916 SQL Server - Componentes detectados: ",
-                Componentes_sql, "\n--------")
-        
+              Componentes_sql, "\n--------")
+
         cursor_sql.execute("SELECT COUNT(idLeitura) FROM GustavoLeitura")
         rowLeitura_sql = cursor_sql.fetchone()
         Leitura_sql = int(''.join(map(str, rowLeitura_sql)))
         print("\U0001F916 SQL Server - Leituras detectadas: ",
-                Leitura_sql, "\n--------")
-            
-        if Regiao == 0 or Estado == 0 or Cidade == 0 or Equipamento == 0 or Componentes == 0 or Regiao_sql == 0 or Estado_sql == 0 or Cidade_sql == 0 or Equipamento_sql == 0 or Componentes_sql == 0 :
+              Leitura_sql, "\n--------")
+
+        if Regiao == 0 or Estado == 0 or Cidade == 0 or Equipamento == 0 or Componentes == 0 or Regiao_sql == 0 or Estado_sql == 0 or Cidade_sql == 0 or Equipamento_sql == 0 or Componentes_sql == 0:
             print("\U0001F916 Reiniciando validação geral...")
             validacaoRegiao()
         elif Regiao != 0 and Estado != 0 and Cidade != 0 and Equipamento != 0 and Componentes != 0 and Regiao_sql != 0 and Estado_sql != 0 and Cidade_sql != 0 and Equipamento_sql != 0 and Componentes_sql != 0:
-            print("\U0001F916 Ótimo, todo o sistema de tabelas esta parametrizado, iremos para o proximo passo...")
+            print(
+                "\U0001F916 Ótimo, todo o sistema de tabelas esta parametrizado, iremos para o proximo passo...")
             print("\U0001F916 Estou validando agora se você tem dados nas tabelas de Leitura no MySQL e no SQL Server.")
-            
-            print("\U0001F916 Você tem na tabela de Leitura do MySQL um total de registros:", Leitura)
+
+            print(
+                "\U0001F916 Você tem na tabela de Leitura do MySQL um total de registros:", Leitura)
             print("\U0001F916 Você tem na tabela de Leitura do SQL Server no Azure um total de registros:", Leitura_sql)
-            
+
             conn.close()
             coxn.close()
-            break 
+            break
         else:
             print("\U0001F916 Terei que validar novamente...")
             validacaoRegiao()
-        
+
         validacaoRegiao()
+
 
 def validacaoMysql(conn, coxn):
     print("Iniciando validações...")
 
     cursor = conn.cursor()
 
-    cursor.execute("CREATE DATABASE IF NOT EXISTS dashTeste;")
+    cursor.execute("CREATE DATABASE IF NOT EXISTS dashboard;")
 
-    cursor.execute("USE dashteste;")
+    cursor.execute("USE dashboard;")
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS GustavoRegiao (
@@ -561,7 +594,7 @@ def validacaoMysql(conn, coxn):
     PRIMARY KEY (fkRegiao , fkEstado),
     KEY (idCidade),
     nomeCidade VARCHAR(45)
-) AUTO_INCREMENT = 50;""")
+);""")
 
     cursor.execute("""CREATE TABLE IF NOT EXISTS GustavoEquipamento (
     fkRegiao INT,
@@ -605,9 +638,8 @@ def validacaoMysql(conn, coxn):
     fkComponente INT,
     FOREIGN KEY (fkComponente)
         REFERENCES GustavoComponente (idComponente),
-    PRIMARY KEY (fkRegiao , fkEstado , fkCidade , fkEquipamento , fkComponente),
-    idLeitura INT AUTO_INCREMENT,
-    KEY (idLeitura),
+    idLeitura INT PRIMARY KEY AUTO_INCREMENT,
+	KEY (fkRegiao , fkEstado , fkCidade , fkEquipamento , fkComponente),
     valor FLOAT NOT NULL,
     momento DATE NOT NULL
 );""")
@@ -615,23 +647,25 @@ def validacaoMysql(conn, coxn):
     print("MySQL - Validações de tabelas finalizada com sucesso.")
     captura(conn, coxn)
 
+
 if escolha == 1:
     try:
         print("\U0001F916 Estou tentando me conectar ao banco de dados MySQL e o Banco de dados SQL Server no Azure.", "\n--------")
-        
+
         conn = mysql.connector.connect(
-            host='localhost',
+            host='172.17.0.1',
             user='root',
-            password='root'
+            password='root',
+            port=3305
         )
         print("Consegui! Conexão com o Banco de Dados MySQL efetuada com sucesso.")
-        
+
         server = 'healthsystem.database.windows.net'
         database = 'healthsystem'
         username = 'grupo01sis'
         password = '#GfHealthSystem01'
         coxn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server +
-                                ';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD=' + password)
+                              ';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD=' + password)
 
         print("Opa! Conexão com o Banco de Dados SQL Server Azure efetuada com sucesso.")
         validacaoMysql(conn, coxn)
