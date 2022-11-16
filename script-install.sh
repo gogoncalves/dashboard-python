@@ -34,6 +34,8 @@ case $opcao in
             clear
             echo "$(tput setaf 3)[Bot assistant]:$(tput setaf 7) Bem-vindo ao mundo do shell script, $nome!"
             sleep 2
+            echo "$(tput setaf 3)[Bot assistant]:$(tput setaf 7) $nome é muito importante que você configure o IPV4 da sua instancia toda vez que iniciar ela no Azure!"
+            sleep 5
             clear
             validacao_java
         ;;
@@ -117,13 +119,13 @@ function validacao_driver {
     echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Estou verificando se você precisa do driver ODBC para SQL Server."
     system=$(lsb_release -rs)
     sleep 2
-    if [[ "18.04 20.04 22.04" == $system ]]
+    if [[ "22.04" == $system ]]
     then
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Preparando para instalar o driver ODBC para Linux. Confirme a instalação quando solicitado ;D"
         echo sudo su
         echo curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-        echo curl https://packages.microsoft.com/config/ubuntu/$system/prod.list > /etc/apt/sources.list.d/mssql-release.list
+        echo curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
         echo sudo apt-get update
         echo sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
         echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Driver instalado com sucesso!"
@@ -297,22 +299,19 @@ function get_project {
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - MySQL 8.0."
         sudo docker pull mysql:8.0 
         clear
+        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem MySQL 8.0"
+        sudo docker run -d -p 3305:3306 --name ContainerBDMySQL -e "MYSQL_ROOT_PASSWORD=root" mysql:8.0
+        sleep 2
+        clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - API Crawler Python"
         sudo docker pull gogoncalves/api-crawler-sql-mysql:latest
         clear
-        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Imagens instaladas:"
-        sudo docker images
-        sleep 3
-        clear
-        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem MySQL 8.0"
-        sudo docker run -d -p 3305:3306 --name ContainerBDMySQL -e "MYSQL_ROOT_PASSWORD=root" mysql:8.0
-        clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem API Crawler Python"
-        sudo docker run -dp 3000:3000 --name ContainerApiCrawlerTab -w /app -v ${PWD}:/app gogoncalves/api-crawler-sql-mysql:latest
+        sudo docker run -dp 3000:3000 --name ContainerApi gogoncalves/api-crawler-sql-mysql:latest
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Detalhamento dos Containers:"
+        sudo docker images
         sudo docker ps -a
-        sudo docker stats ConteinerBD
         sleep 3
         clear
         echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Projeto Arquitetura B - 2 Containers em Docker - instalado com sucesso!"
