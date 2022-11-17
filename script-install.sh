@@ -276,7 +276,7 @@ function get_project {
         sudo docker pull mysql:8.0 
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem MySQL 8.0"
-        sudo docker run -d -p 3306:3306 --name ContainerBDMySQL -e "MYSQL_ROOT_PASSWORD=root" mysql:8.0
+        sudo docker run -d -p 3305:3306 --name ContainerBDMySQL -e "MYSQL_ROOT_PASSWORD=root" mysql:8.0
         sleep 9
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - API Crawler Python"
