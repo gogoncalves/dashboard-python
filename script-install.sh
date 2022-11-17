@@ -117,28 +117,18 @@ fi
 
 function validacao_driver {
     echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Estou verificando se você precisa do driver ODBC para SQL Server."
-    system=$(lsb_release -rs)
-    sleep 2
-    if [[ "22.04" == $system ]]
-    then
-        clear
-        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Preparando para instalar o driver ODBC para Linux. Confirme a instalação quando solicitado ;D"
-        echo sudo su
-        echo curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-        echo curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
-        echo sudo apt-get update
-        echo sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
-        echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Driver instalado com sucesso!"
-        validacao_mysql
-    else
-        clear
-        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Percebi que você não tem um sistema operacional Ubuntu Linux nas versões 18.04, 20.04 ou 22.04."
-        sleep 4
-        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Mas fique tranquilo, isso não é um problema, é apenas uma verificação para adequarmos o sistema de forma correta para receber nossa aplicação."
-        sleep 6
-        clear
-        validacao_mysql
-    fi
+    clear
+    echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Preparando para instalar o driver ODBC para Linux. Confirme a instalação quando solicitado ;D"
+    echo sudo su
+    echo curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+    echo curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+    echo sudo apt-get update
+    echo sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
+    echo sudo apt-get install -y unixodbc-dev
+    echo pip install pyodbc
+    echo pip install mysql-connector-python
+    echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Driver instalado com sucesso!"
+    validacao_mysql
 }
 
 function validacao_mysql {
