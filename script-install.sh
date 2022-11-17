@@ -81,10 +81,9 @@ if [ $? -eq 0 ]
 then
     clear
     echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Que ótimo, Você já tem o java instalado!!!"
-    java -version
     sleep 3
     clear
-    validacao_driver
+    validacao_mysql
 else
     echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Opa! Não identifiquei nenhuma versão do Java instalado, mas sem problemas, irei resolver isso agora!"
     echo "$(tput setaf 4)[Bot assistant]:$(tput setaf 7) Confirme para mim se realmente deseja instalar o Java (S/N)?"
@@ -106,29 +105,13 @@ else
                     sudo apt install default-jre ; apt install openjdk-11-jre-headless; -y
                     clear
                     echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Java instalado com sucesso!"
-                    validacao_driver
+                    validacao_mysql
                 fi
         else 	
             echo "$(tput setaf 9)[Bot assistant]:$(tput setaf 7) Você optou por não instalar o Java por enquanto, até a próxima então!"
-            validacao_driver
+            validacao_mysql
     fi
 fi
-}
-
-function validacao_driver {
-    echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Estou verificando se você precisa do driver ODBC para SQL Server."
-    clear
-    echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Preparando para instalar o driver ODBC para Linux. Confirme a instalação quando solicitado ;D"
-    echo sudo su
-    echo curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-    echo curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
-    echo sudo apt-get update
-    echo sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
-    echo sudo apt-get install -y unixodbc-dev
-    echo pip install pyodbc
-    echo pip install mysql-connector-python
-    echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Driver instalado com sucesso!"
-    validacao_mysql
 }
 
 function validacao_mysql {
@@ -209,21 +192,48 @@ function validacao_pip3 {
                 echo y | sudo apt install pip3
                 clear
                 echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Pip3 instalado com sucesso!"
-                validacao_docker
+                validacao_driver
             else
             clear	
             echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7)  Você optou por não instalar o Pip3 por enquanto, até a próxima então!"
             sleep 3
-            validacao_docker
+            validacao_driver
         fi
         
     else
         clear
         echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Ótimo, você já tem o pip3 instalado!!!"
+        sudo apt install python3-pip
         sleep 3
-        validacao_docker
+        validacao_driver
     fi
 }
+
+function validacao_driver {
+    if ! [[ "18.04 20.04 22.04" == *"$(lsb_release -rs)"* ]]
+    then
+        echo "Ubuntu $(lsb_release -rs) não é suportado."
+        exit
+    fi
+
+    sudo su
+    curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+    curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list
+    exit
+    clear
+    sudo apt-get update
+    clear
+    sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
+    sudo apt-get install -y unixodbc-dev
+    clear
+    pip install pyodbc
+    pip install mysql-connector-python
+    clear
+    echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Driver instalado com sucesso!"
+    sleep 2
+    validacao_docker
+}
+
 
 function validacao_docker {
     clear
