@@ -186,6 +186,7 @@ function validacao_pip3 {
 }
 
 function validacao_driver {
+    echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Vou instalar o driver ODBC..."
     if ! [[ "18.04 20.04 22.04" == *"$(lsb_release -rs)"* ]]
     then
         echo "Ubuntu $(lsb_release -rs) não é suportado."
