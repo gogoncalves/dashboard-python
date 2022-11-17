@@ -4,11 +4,13 @@ import java.sql.Connection
 import java.sql.DriverManager
 
 class ConexaoMySQL {
-    val driver = Class.forName("com.mysql.cj.jdbc.Driver")
 
     fun getJdbcTemplateMySQL(): Connection {
-        val conexao = DriverManager.getConnection("jdbc:mysql://172.17.0.2:3305/dashboard", "root", "root")
 
-        return conexao
+        Class.forName("com.mysql.cj.jdbc.Driver")
+
+        return DriverManager.getConnection(
+            "jdbc:" + "mysql" + "://" + "127.0.0.2" + ":" + "3305" + "/" + "dashboard",
+            "root", "root")
     }
 }

@@ -42,11 +42,9 @@ open class Main {
                 for (i in 1..27) {
                     val percentualCPU = looca.processador
                     val percentualUso = (percentualCPU.uso * 100).roundToInt().toDouble() / 100
-
-                    val df = DecimalFormat("#.##")
                     val percentual: Double = java.lang.Double.valueOf(percentualUso).toDouble()
-                    val novaLeitura = Leitura(1, i, i, i, 1, percentual, LocalDate.now())
 
+                    val novaLeitura = Leitura(1, i, i, i, 1, percentual, LocalDate.now())
                     repositorioLeitura.inserir(novaLeitura)
 
                     println(
