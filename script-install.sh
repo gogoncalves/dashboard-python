@@ -276,8 +276,8 @@ function get_project {
         sudo docker pull mysql:8.0 
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem MySQL 8.0"
-        sudo docker run -d -p 3305:3306 --name ContainerBDMySQL -e "MYSQL_ROOT_PASSWORD=root" mysql:8.0
-        sleep 2
+        sudo docker run -d -p 3305:3305 --name ContainerBDMySQL -e "MYSQL_ROOT_PASSWORD=root" mysql:8.0
+        sleep 9
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - API Crawler Python"
         sudo docker pull gogoncalves/api-crawler-sql-mysql:latest
@@ -290,7 +290,7 @@ function get_project {
         sudo docker ps -a
         sleep 3
         clear
-        echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Projeto Arquitetura B - 2 Containers em Docker - instalado com sucesso!"
+        echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Projeto Arquitetura B - 3 Containers em Docker - instalado com sucesso!"
         final
         ;;
     "2")
@@ -310,13 +310,28 @@ function get_project {
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Aguarde mais um pouco!"
         sleep 9
         clear
+        echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Projeto Arquitetura C - 1 Container em Docker - instalado com sucesso!"
         cd /home/ubuntu/Desktop
         mkdir sprint-3
         cd sprint-3
+        mkdir api-kotlin
+        cd api-kotlin
+        git clone --branch apiKotlin https://github.com/GOGoncalves/dash-project-python-kotlin.git
+        clear
+        cd ..
+        mkdir api-python
+        cd api-python
         git clone --branch app-crawler https://github.com/GOGoncalves/dash-project-python-kotlin.git
         clear
         cd dash-project-python-kotlin
         python3 app_crawler_tab.py
+        sleep 10
+        cd ..
+        cd api-kotlin
+        cd dash-project-python-kotlin
+        cd apiKotlin
+        cd target
+        java -jar consoleApp-1.0-SNAPSHOT-jar-with-dependencies.jar
     ;;
 esac
 }
