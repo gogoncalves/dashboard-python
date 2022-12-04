@@ -352,6 +352,7 @@ x
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem API Crawler Python"
         sudo docker run -dp 3000:3000 --name ContainerApiPython gogoncalves/api-crawler-sql-mysql:latest
         clear
+        sleep 12
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - API Kotlin"
         sudo docker pull gogoncalves/api-kotlin-looca-oshi:basic
         clear
