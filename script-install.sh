@@ -285,7 +285,7 @@ x
         sudo docker pull gogoncalves/api-crawler-sql-mysql:latest
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem API Crawler Python"
-        sudo docker run -dp 3000:3000 --name ContainerApi gogoncalves/api-crawler-sql-mysql:latest
+        sudo docker run -dp 3000:3000 --name ContainerApiPython gogoncalves/api-crawler-sql-mysql:latest
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Detalhamento dos Containers:"
         sudo docker images
@@ -350,13 +350,13 @@ x
         sudo docker pull gogoncalves/api-crawler-sql-mysql:latest
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem API Crawler Python"
-        sudo docker run -dp 3000:3000 --name ContainerApi gogoncalves/api-crawler-sql-mysql:latest
+        sudo docker run -dp 3000:3000 --name ContainerApiPython gogoncalves/api-crawler-sql-mysql:latest
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - API Kotlin"
         sudo docker pull gogoncalves/api-kotlin-looca-oshi:basic
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem API Crawler Python"
-        sudo docker run -dp 3002:3002 --name ContainerApi gogoncalves/api-kotlin-looca-oshi:basic
+        sudo docker run -dp 3002:3002 --name ContainerApiKotlin gogoncalves/api-kotlin-looca-oshi:basic
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Detalhamento dos Containers:"
         sudo docker images
