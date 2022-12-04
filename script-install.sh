@@ -264,9 +264,11 @@ function get_project {
     echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Agora chegou o momento de decidir se quer ou não pegar o projeto que esta no repositorio remoto."
     echo "$(tput setaf 4)[Bot assistant]:$(tput setaf 7)  Diga para mim qual tipo de arquitetura deseja instalar o projeto nessa instancia (1/2)?"
     echo  "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) 1 - Arquitetura B - 2 Containers em Docker - 1 dedicado para o MySQL e o 2º dedicado para API Crawler Python, o 2º envia dados para o SQL Server e consulta/persiste dados no MySQL Local;"
-    echo  "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) 2 - Arquitetura C - 1 Container em Docker - 1 container dedicado para o MySQL e uma aplicação fora do container que opera enviando dados para o SQL Server e consulta/persiste dados no MySQL Local."
+    echo  "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) 2 - Arquitetura C - 1 Container em Docker - 1 container dedicado para o MySQL e uma aplicação fora do container que opera enviando dados para o SQL Server e consulta/persiste dados no MySQL Local;"
+    echo  "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) 3 - Arquitetura D - 3 Containers em Docker - 1 container dedicado para o MySQL, o 2º dedicado para API Crawler Python e o 3º para o APP Kotlin, ambas APIs envia dados para o SQL Server e consulta/persiste dados no MySQL Local."
+ 
     read opcao
-
+x
     case $opcao in
     "1")
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Preparando para instalar o Projeto."
@@ -332,6 +334,36 @@ function get_project {
         cd apiKotlin
         cd target
         java -jar consoleApp-1.0-SNAPSHOT-jar-with-dependencies.jar
+    ;;
+    "3")
+        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Preparando para instalar o Projeto - Arquitetura D."
+        docker --version
+        clear
+        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - MySQL 8.0."
+        sudo docker pull mysql:8.0 
+        clear
+        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem MySQL 8.0"
+        sudo docker run -d -p 3305:3306 --name ContainerBDMySQL -e "MYSQL_ROOT_PASSWORD=root" mysql:8.0
+        sleep 9
+        clear
+        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - API Crawler Python"
+        sudo docker pull gogoncalves/api-crawler-sql-mysql:latest
+        clear
+        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem API Crawler Python"
+        sudo docker run -dp 3000:3000 --name ContainerApi gogoncalves/api-crawler-sql-mysql:latest
+        clear
+        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - API Kotlin"
+        sudo docker pull gogoncalves/api-kotlin-looca-oshi:basic
+        clear
+        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem API Crawler Python"
+        sudo docker run -dp 3002:3002 --name ContainerApi gogoncalves/api-kotlin-looca-oshi:basic
+        clear
+        echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Detalhamento dos Containers:"
+        sudo docker images
+        sleep 2
+        sudo docker ps -a
+        sleep 3
+        clear
     ;;
 esac
 }
