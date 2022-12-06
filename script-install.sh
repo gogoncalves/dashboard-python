@@ -297,7 +297,7 @@ x
         ;;
     "2")
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Preparando para instalar o Projeto - Arquitetura C."
-        docker --version
+        sudo docker --version
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - MySQL 8.0."
         sudo docker pull mysql:8.0 
@@ -337,17 +337,17 @@ x
     ;;
     "3")
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Preparando para instalar o Projeto - Arquitetura D."
-        docker --version
+        sudo docker --version
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando rede privada dedicada para containers."
-        docker network create employee-mysql
-        docker network ls
+        sudo docker network create employee-mysql
+        sudo docker network ls
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - MySQL 8.0."
         sudo docker pull mysql:8.0 
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem MySQL 8.0"
-        docker container run --name mysqldb --network employee-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:8
+        sudo docker container run --name mysqldb --network employee-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0
         sleep 9
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Baixando imagem de Maquina - API Crawler Python"
@@ -361,7 +361,7 @@ x
         sudo docker pull gogoncalves/api-kotlin-looca-oshi:update
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Criando container com a imagem API Crawler Python"
-        sudo docker run --network employee-mysql --name employee-kotlin-container gogoncalves/api-kotlin-looca-oshi:basic
+        sudo docker run --network employee-mysql --name employee-kotlin-container gogoncalves/api-kotlin-looca-oshi:update
         clear
         echo "$(tput setaf 14)[Bot assistant]:$(tput setaf 7) Detalhamento dos Containers:"
         sudo docker images
