@@ -1,4 +1,3 @@
-# dash-project-python-kotlin
+# Dashboard interativa 100% em Python
 
-<h5>Aplicação client/Web para o monitoramento de componentes de hardware / sistemas operacionais, utilizando os conceitos do ITIL de Monitoramento de Serviços, Gestão de Incidentes e Gestão de Problemas.
-</h5>
+<h5>Esta Dashboard foi elaborada para proporcionar o monitoramento de equipamentos multiparametricos utilizando apenas Python e Kotlin, proporcionando para o gestor uma visão analítica (Macro) e uma visão sintética (Micro) de cada Unidade Federativa com hardware distribuido pelo País.</h5>
